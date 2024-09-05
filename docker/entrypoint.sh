@@ -67,9 +67,9 @@ else
 fi
 
 sudo -u postgres psql -d $POSTGRES_DB -c "CREATE EXTENSION IF NOT EXISTS pgml"
+sudo -u postgres psql -d $POSTGRES_DB -c "CREATE EXTENSION IF NOT EXISTS vector"
 
 echo "PostgreSQL setup complete."
 
-bash /app/dashboard.sh &
 # Execute any additional commands or keep the container running
 exec "$@"

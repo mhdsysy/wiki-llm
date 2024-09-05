@@ -26,7 +26,11 @@ echo "trusted = true" >> vector.control && \
 COPY entrypoint.sh /app/entrypoint.sh
 COPY dashboard.sh /app/dashboard.sh
 
-# COPY --chown=postgres:postgres local_dev.conf /etc/postgresql/15/main/conf.d/01-local_dev.conf
-# COPY --chown=postgres:postgres pg_hba.conf /etc/postgresql/15/main/pg_hba.conf
+# This setting determines which IP addresses PostgreSQL listens on. By default,
+# it might be set to localhost, meaning PostgreSQL only accepts connections from the container itself.
+# When you specify listen_addresses = '0.0.0.0', you're telling PostgreSQL to listen on all available network interfaces,
+# which includes external connections (such as from your local machine).
+COPY --chown=postgres:postgres local_dev.conf /etc/postgresql/15/main/conf.d/01-local_dev.conf
+COPY --chown=postgres:postgres pg_hba.conf /etc/postgresql/15/main/pg_hba.conf
 
 ENTRYPOINT ["bash", "/app/entrypoint.sh"]
