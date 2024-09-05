@@ -1,0 +1,22 @@
+services:
+  postgresml:
+    image: postgresml
+    tty: true  # equivalent to `-it`
+    env_file:
+      .env
+    ports:
+      - "5433:5432"
+    labels:
+      org.springframework.boot.service: postgresml
+    command: /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -d $POSTGRES_DB -U $POSTGRES_USER -h localhost"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB -h 127.0.0.1" ]
+      interval: 10s  # how often to perform the check
+      timeout: 10s  # how long to wait for the response
+      retries: 5  # how many retries before considering the service unhealthy
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Mount the volume
+
+volumes:
+  postgres_data:
+    driver: local
