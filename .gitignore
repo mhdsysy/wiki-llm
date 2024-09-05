@@ -35,9 +35,6 @@ build/
 # Ignore all .env files
 **/*.env
 
-# Ignore all application.properties files at any level
-**/application.properties
-
 # Ignore all files starting with application- and ending with .properties at any level
 **/application-*.properties
 
