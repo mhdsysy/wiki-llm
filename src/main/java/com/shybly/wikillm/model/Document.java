@@ -20,10 +20,8 @@ public class Document {
     private String metadata;
 
     @Convert(converter = FloatArrayConverter.class)
-    @Column(name = "embedding", columnDefinition = "float[]")
+    @Column(name = "embedding", columnDefinition = "vector(768)")
     private Float[] embedding;
-
-    // Getters and Setters
 
     public UUID getId() {
         return id;
